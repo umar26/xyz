@@ -8,6 +8,10 @@ namespace OnlineExam.BAL
 {
   public  class UsersBL
     {
+		public UsersBL()
+		{
+
+		}
 
     }
 }

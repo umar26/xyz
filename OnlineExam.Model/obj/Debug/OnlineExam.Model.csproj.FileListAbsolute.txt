@@ -2,3 +2,8 @@ C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineEx
 C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineExam.Model\bin\Debug\OnlineExam.Model.pdb
 C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineExam.Model\obj\Debug\OnlineExam.Model.dll
 C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineExam.Model\obj\Debug\OnlineExam.Model.pdb
+D:\myproj\xyz\OnlineExam.Model\bin\Debug\OnlineExam.Model.dll
+D:\myproj\xyz\OnlineExam.Model\bin\Debug\OnlineExam.Model.pdb
+D:\myproj\xyz\OnlineExam.Model\obj\Debug\OnlineExam.Model.csprojResolveAssemblyReference.cache
+D:\myproj\xyz\OnlineExam.Model\obj\Debug\OnlineExam.Model.dll
+D:\myproj\xyz\OnlineExam.Model\obj\Debug\OnlineExam.Model.pdb

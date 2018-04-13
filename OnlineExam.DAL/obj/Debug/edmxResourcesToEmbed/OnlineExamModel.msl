@@ -180,5 +180,29 @@
         <ScalarProperty Name="RoleId" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="uspInsertExam" FunctionName="OnlineExamModel.Store.uspInsertExam">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExamModel.uspInsertExam_Result">
+          <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+          <ScalarProperty Name="ErrorSeverity" ColumnName="ErrorSeverity" />
+          <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+          <ScalarProperty Name="ErrorProcesure" ColumnName="ErrorProcesure" />
+          <ScalarProperty Name="ErroLine" ColumnName="ErroLine" />
+          <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspInsertExam1" FunctionName="OnlineExamModel.Store.uspInsertExam">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineExamModel.ErrorInfo_Result">
+          <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+          <ScalarProperty Name="ErrorSeverity" ColumnName="ErrorSeverity" />
+          <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+          <ScalarProperty Name="ErrorProcesure" ColumnName="ErrorProcesure" />
+          <ScalarProperty Name="ErroLine" ColumnName="ErroLine" />
+          <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

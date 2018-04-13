@@ -286,6 +286,12 @@
       <End Role="ROLE" EntitySet="ROLES" />
       <End Role="USER" EntitySet="USERS" />
     </AssociationSet>
+    <FunctionImport Name="uspInsertExam" ReturnType="Collection(OnlineExamModel.uspInsertExam_Result)">
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="uspInsertExam1" ReturnType="Collection(OnlineExamModel.ErrorInfo_Result)">
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
     <Key>
@@ -408,4 +414,20 @@
     <End Type="OnlineExamModel.ROLE" Role="ROLE" Multiplicity="*" />
     <End Type="OnlineExamModel.USER" Role="USER" Multiplicity="*" />
   </Association>
+  <ComplexType Name="uspInsertExam_Result">
+    <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+    <Property Type="Int32" Name="ErrorSeverity" Nullable="true" />
+    <Property Type="Int32" Name="ErrorState" Nullable="true" />
+    <Property Type="String" Name="ErrorProcesure" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="ErroLine" Nullable="true" />
+    <Property Type="String" Name="ErrorMessage" Nullable="true" MaxLength="4000" />
+  </ComplexType>
+  <ComplexType Name="ErrorInfo_Result">
+    <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+    <Property Type="Int32" Name="ErrorSeverity" Nullable="true" />
+    <Property Type="Int32" Name="ErrorState" Nullable="true" />
+    <Property Type="String" Name="ErrorProcesure" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="ErroLine" Nullable="true" />
+    <Property Type="String" Name="ErrorMessage" Nullable="true" MaxLength="4000" />
+  </ComplexType>
 </Schema>

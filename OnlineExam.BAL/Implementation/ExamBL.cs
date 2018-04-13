@@ -32,7 +32,7 @@ namespace OnlineExam.BAL
             return _Exampaper.GetAll().ToList();
         }
 
-        public ObjectResult<ErrorInfo_Result> InsertExam(string Name)
+		public ObjectResult<ErrorInfo_Result> InsertExam(string Name)
         {
          return _Entities.uspInsertExam1(Name);
         }

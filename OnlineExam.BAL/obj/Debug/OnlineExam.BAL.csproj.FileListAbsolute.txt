@@ -9,3 +9,16 @@ C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineEx
 C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineExam.BAL\obj\Debug\OnlineExam.BAL.csprojResolveAssemblyReference.cache
 C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineExam.BAL\obj\Debug\OnlineExam.BAL.dll
 C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineExam.BAL\obj\Debug\OnlineExam.BAL.pdb
+D:\myproj\xyz\OnlineExam.BAL\obj\Debug\OnlineExam.BAL.csprojResolveAssemblyReference.cache
+D:\myproj\xyz\OnlineExam.BAL\obj\Debug\OnlineExam.BAL.dll
+D:\myproj\xyz\OnlineExam.BAL\obj\Debug\OnlineExam.BAL.pdb
+D:\myproj\xyz\OnlineExam.BAL\bin\Debug\OnlineExam.BAL.dll
+D:\myproj\xyz\OnlineExam.BAL\bin\Debug\OnlineExam.BAL.pdb
+D:\myproj\xyz\OnlineExam.BAL\bin\Debug\EntityFramework.dll
+D:\myproj\xyz\OnlineExam.BAL\bin\Debug\EntityFramework.SqlServer.dll
+D:\myproj\xyz\OnlineExam.BAL\bin\Debug\OnlineExam.DAL.dll
+D:\myproj\xyz\OnlineExam.BAL\bin\Debug\OnlineExam.Model.dll
+D:\myproj\xyz\OnlineExam.BAL\bin\Debug\OnlineExam.DAL.pdb
+D:\myproj\xyz\OnlineExam.BAL\bin\Debug\OnlineExam.Model.pdb
+D:\myproj\xyz\OnlineExam.BAL\bin\Debug\EntityFramework.xml
+D:\myproj\xyz\OnlineExam.BAL\bin\Debug\EntityFramework.SqlServer.xml

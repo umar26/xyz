@@ -5,3 +5,10 @@ C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineEx
 C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineExam.ViewModelMapper\obj\Debug\OnlineExam.ViewModelMapper.csprojResolveAssemblyReference.cache
 C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineExam.ViewModelMapper\obj\Debug\OnlineExam.ViewModelMapper.dll
 C:\Users\Abhishek Umar\documents\visual studio 2015\Projects\OnlineExam\OnlineExam.ViewModelMapper\obj\Debug\OnlineExam.ViewModelMapper.pdb
+D:\myproj\xyz\OnlineExam.ViewModelMapper\bin\Debug\OnlineExam.ViewModelMapper.dll
+D:\myproj\xyz\OnlineExam.ViewModelMapper\bin\Debug\OnlineExam.ViewModelMapper.pdb
+D:\myproj\xyz\OnlineExam.ViewModelMapper\bin\Debug\OnlineExam.Model.dll
+D:\myproj\xyz\OnlineExam.ViewModelMapper\bin\Debug\OnlineExam.Model.pdb
+D:\myproj\xyz\OnlineExam.ViewModelMapper\obj\Debug\OnlineExam.ViewModelMapper.csprojResolveAssemblyReference.cache
+D:\myproj\xyz\OnlineExam.ViewModelMapper\obj\Debug\OnlineExam.ViewModelMapper.dll
+D:\myproj\xyz\OnlineExam.ViewModelMapper\obj\Debug\OnlineExam.ViewModelMapper.pdb

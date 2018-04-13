@@ -371,6 +371,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="uspInsertExam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Name" Type="varchar(max)" Mode="In" />
+  </Function>
   <EntityContainer Name="OnlineExamModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
