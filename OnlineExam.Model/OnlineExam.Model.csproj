@@ -52,11 +52,8 @@
     <Compile Include="Choice.cs">
       <DependentUpon>OnlineExamModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CustomModel.cs" />
     <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>OnlineExamModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ErrorInfo_Result.cs">
       <DependentUpon>OnlineExamModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Exam.cs">
@@ -93,6 +90,9 @@
       <DependentUpon>OnlineExamModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserExam.cs">
+      <DependentUpon>OnlineExamModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="uspgetQuestionsByExamPaperId_Result.cs">
       <DependentUpon>OnlineExamModel.tt</DependentUpon>
     </Compile>
     <Compile Include="uspInsertExam_Result.cs">

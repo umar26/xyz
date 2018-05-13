@@ -20,6 +20,8 @@ namespace OnlineExam.Model
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.ROLES = new HashSet<ROLE>();
+            this.UserAnswers = new HashSet<UserAnswer>();
+            this.UserExams = new HashSet<UserExam>();
         }
     
         public int UserId { get; set; }
@@ -45,5 +47,9 @@ namespace OnlineExam.Model
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ROLE> ROLES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserAnswer> UserAnswers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserExam> UserExams { get; set; }
     }
 }

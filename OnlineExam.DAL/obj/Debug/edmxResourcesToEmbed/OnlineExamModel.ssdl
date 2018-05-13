@@ -128,7 +128,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserID" Type="int" />
+    <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="QuestionId" Type="int" />
     <Property Name="ChoiceID" Type="int" />
     <Property Name="Answer" Type="varchar(max)" />
@@ -275,6 +275,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__UserAnswe__UserI__02084FDA">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+    <End Role="UserAnswer" Type="Self.UserAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserAnswer">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__UserExam__ExamPa__5441852A">
     <End Role="ExamPaper" Type="Self.ExamPaper" Multiplicity="0..1" />
     <End Role="UserExam" Type="Self.UserExam" Multiplicity="*" />
@@ -284,6 +296,18 @@
       </Principal>
       <Dependent Role="UserExam">
         <PropertyRef Name="ExamPaperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserExam__UserID__02FC7413">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+    <End Role="UserExam" Type="Self.UserExam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserExam">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -371,6 +395,34 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="uspgetQuestionsByExamPaperId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="exampaperid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspInsertExam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Name" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="uspInsertUserAnswer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userid" Type="int" Mode="In" />
+    <Parameter Name="questionid" Type="int" Mode="In" />
+    <Parameter Name="choiceid" Type="int" Mode="In" />
+    <Parameter Name="exampaperid" Type="int" Mode="In" />
+    <Parameter Name="USERANSWERID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="uspInsetQuestionWithAnswer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questiontype" Type="int" Mode="In" />
+    <Parameter Name="exampaperid" Type="int" Mode="In" />
+    <Parameter Name="questiontext" Type="varchar(max)" Mode="In" />
+    <Parameter Name="chioce1" Type="varchar(max)" Mode="In" />
+    <Parameter Name="chioce2" Type="varchar(max)" Mode="In" />
+    <Parameter Name="chioce3" Type="varchar(max)" Mode="In" />
+    <Parameter Name="chioce4" Type="varchar(max)" Mode="In" />
+    <Parameter Name="answer" Type="varchar(max)" Mode="In" />
+    <Parameter Name="QUESTIONID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="uspUpdateUserAnswerById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="useranswerid" Type="int" Mode="In" />
+    <Parameter Name="choiceid" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="OnlineExamModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
@@ -425,8 +477,16 @@
       <End Role="Question" EntitySet="Question" />
       <End Role="UserAnswer" EntitySet="UserAnswer" />
     </AssociationSet>
+    <AssociationSet Name="FK__UserAnswe__UserI__02084FDA" Association="Self.FK__UserAnswe__UserI__02084FDA">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="UserAnswer" EntitySet="UserAnswer" />
+    </AssociationSet>
     <AssociationSet Name="FK__UserExam__ExamPa__5441852A" Association="Self.FK__UserExam__ExamPa__5441852A">
       <End Role="ExamPaper" EntitySet="ExamPaper" />
+      <End Role="UserExam" EntitySet="UserExam" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserExam__UserID__02FC7413" Association="Self.FK__UserExam__UserID__02FC7413">
+      <End Role="USERS" EntitySet="USERS" />
       <End Role="UserExam" EntitySet="UserExam" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_USERS_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_USERS_UserId">

@@ -23,5 +23,6 @@ namespace OnlineExam.Model
         public System.DateTime SubmittedDate { get; set; }
     
         public virtual ExamPaper ExamPaper { get; set; }
+        public virtual USER USER { get; set; }
     }
 }

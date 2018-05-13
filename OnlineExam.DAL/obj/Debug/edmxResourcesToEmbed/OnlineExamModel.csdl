@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="OnlineExamModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
   <EntityType Name="Answer">
     <Key>
       <PropertyRef Name="ID" />
@@ -10,6 +20,27 @@
     <Property Name="ChoiceID" Type="Int32" />
     <NavigationProperty Name="Choice" Relationship="Self.FK__Answer__ChoiceID__44FF419A" FromRole="Answer" ToRole="Choice" />
     <NavigationProperty Name="Question" Relationship="Self.FK__Answer__Question__440B1D61" FromRole="Answer" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="USER" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_USERS_UserId" FromRole="AspNetUserClaims" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="USER" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_USERS_UserId" FromRole="AspNetUserLogins" ToRole="USERS" />
   </EntityType>
   <EntityType Name="Choice">
     <Key>
@@ -44,6 +75,14 @@
     <NavigationProperty Name="UserAnswers" Relationship="Self.FK__UserAnswe__ExamP__5070F446" FromRole="ExamPaper" ToRole="UserAnswer" />
     <NavigationProperty Name="UserExams" Relationship="Self.FK__UserExam__ExamPa__5441852A" FromRole="ExamPaper" ToRole="UserExam" />
   </EntityType>
+  <EntityType Name="PERMISSION">
+    <Key>
+      <PropertyRef Name="PermissionId" />
+    </Key>
+    <Property Name="PermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PermissionDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ROLES" Relationship="Self.LNK_ROLE_PERMISSION" FromRole="PERMISSIONS" ToRole="ROLES" />
+  </EntityType>
   <EntityType Name="Question">
     <Key>
       <PropertyRef Name="ID" />
@@ -67,12 +106,34 @@
     <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Questions" Relationship="Self.FK__Question__Questi__3D5E1FD2" FromRole="QuestionType" ToRole="Question" />
   </EntityType>
+  <EntityType Name="ROLE">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LastModified" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsSysAdmin" Type="Boolean" Nullable="false" />
+    <Property Name="RoleDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="PERMISSIONS" Relationship="Self.LNK_ROLE_PERMISSION" FromRole="ROLES" ToRole="PERMISSIONS" />
+    <NavigationProperty Name="USERS" Relationship="Self.LNK_USER_ROLE" FromRole="ROLES" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <EntityType Name="UserAnswer">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
     <Property Name="QuestionId" Type="Int32" />
     <Property Name="ChoiceID" Type="Int32" />
     <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -80,6 +141,7 @@
     <NavigationProperty Name="Choice" Relationship="Self.FK__UserAnswe__Choic__4F7CD00D" FromRole="UserAnswer" ToRole="Choice" />
     <NavigationProperty Name="ExamPaper" Relationship="Self.FK__UserAnswe__ExamP__5070F446" FromRole="UserAnswer" ToRole="ExamPaper" />
     <NavigationProperty Name="Question" Relationship="Self.FK__UserAnswe__Quest__4E88ABD4" FromRole="UserAnswer" ToRole="Question" />
+    <NavigationProperty Name="USER" Relationship="OnlineExamModel.FK__UserAnswe__UserI__02084FDA" FromRole="UserAnswer" ToRole="USER" />
   </EntityType>
   <EntityType Name="UserExam">
     <Key>
@@ -93,6 +155,33 @@
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="SubmittedDate" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="ExamPaper" Relationship="Self.FK__UserExam__ExamPa__5441852A" FromRole="UserExam" ToRole="ExamPaper" />
+    <NavigationProperty Name="USER" Relationship="OnlineExamModel.FK__UserExam__UserID__02FC7413" FromRole="UserExam" ToRole="USER" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LastModified" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Inactive" Type="Boolean" Nullable="false" />
+    <Property Name="Firstname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lastname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_USERS_UserId" FromRole="USERS" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_USERS_UserId" FromRole="USERS" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="ROLES" Relationship="Self.LNK_USER_ROLE" FromRole="USERS" ToRole="ROLES" />
+    <NavigationProperty Name="UserAnswers" Relationship="OnlineExamModel.FK__UserAnswe__UserI__02084FDA" FromRole="USER" ToRole="UserAnswer" />
+    <NavigationProperty Name="UserExams" Relationship="OnlineExamModel.FK__UserExam__UserID__02FC7413" FromRole="USER" ToRole="UserExam" />
   </EntityType>
   <Association Name="FK__Answer__ChoiceID__44FF419A">
     <End Role="Choice" Type="Self.Choice" Multiplicity="0..1" />
@@ -115,6 +204,34 @@
       </Principal>
       <Dependent Role="Answer">
         <PropertyRef Name="QuestionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_USERS_UserId">
+    <End Role="USERS" Type="Self.USER" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_USERS_UserId">
+    <End Role="USERS" Type="Self.USER" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -214,15 +331,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="LNK_ROLE_PERMISSION">
+    <End Role="PERMISSIONS" Type="Self.PERMISSION" Multiplicity="*" />
+    <End Role="ROLES" Type="Self.ROLE" Multiplicity="*" />
+  </Association>
+  <Association Name="LNK_USER_ROLE">
+    <End Role="ROLES" Type="Self.ROLE" Multiplicity="*" />
+    <End Role="USERS" Type="Self.USER" Multiplicity="*" />
+  </Association>
   <EntityContainer Name="OnlineExamEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
     <EntitySet Name="Answers" EntityType="Self.Answer" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
     <EntitySet Name="Choices" EntityType="Self.Choice" />
     <EntitySet Name="Exams" EntityType="Self.Exam" />
     <EntitySet Name="ExamPapers" EntityType="Self.ExamPaper" />
+    <EntitySet Name="PERMISSIONS" EntityType="Self.PERMISSION" />
     <EntitySet Name="Questions" EntityType="Self.Question" />
     <EntitySet Name="QuestionTypes" EntityType="Self.QuestionType" />
+    <EntitySet Name="ROLES" EntityType="Self.ROLE" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="UserAnswers" EntityType="Self.UserAnswer" />
     <EntitySet Name="UserExams" EntityType="Self.UserExam" />
+    <EntitySet Name="USERS" EntityType="Self.USER" />
     <AssociationSet Name="FK__Answer__ChoiceID__44FF419A" Association="Self.FK__Answer__ChoiceID__44FF419A">
       <End Role="Choice" EntitySet="Choices" />
       <End Role="Answer" EntitySet="Answers" />
@@ -230,6 +362,14 @@
     <AssociationSet Name="FK__Answer__Question__440B1D61" Association="Self.FK__Answer__Question__440B1D61">
       <End Role="Question" EntitySet="Questions" />
       <End Role="Answer" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_USERS_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_USERS_UserId">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_USERS_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_USERS_UserId">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
     </AssociationSet>
     <AssociationSet Name="FK__Choice__Question__412EB0B6" Association="Self.FK__Choice__Question__412EB0B6">
       <End Role="Question" EntitySet="Questions" />
@@ -263,149 +403,92 @@
       <End Role="Question" EntitySet="Questions" />
       <End Role="UserAnswer" EntitySet="UserAnswers" />
     </AssociationSet>
-    <EntitySet Name="C__MigrationHistory" EntityType="OnlineExamModel.C__MigrationHistory" />
-    <EntitySet Name="sysdiagrams" EntityType="OnlineExamModel.sysdiagram" />
-    <EntitySet Name="AspNetUserClaims" EntityType="OnlineExamModel.AspNetUserClaim" />
-    <EntitySet Name="AspNetUserLogins" EntityType="OnlineExamModel.AspNetUserLogin" />
-    <EntitySet Name="PERMISSIONS" EntityType="OnlineExamModel.PERMISSION" />
-    <EntitySet Name="ROLES" EntityType="OnlineExamModel.ROLE" />
-    <EntitySet Name="USERS" EntityType="OnlineExamModel.USER" />
-    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_USERS_UserId" Association="OnlineExamModel.FK_dbo_AspNetUserClaims_dbo_USERS_UserId">
+    <AssociationSet Name="LNK_ROLE_PERMISSION" Association="Self.LNK_ROLE_PERMISSION">
+      <End Role="PERMISSIONS" EntitySet="PERMISSIONS" />
+      <End Role="ROLES" EntitySet="ROLES" />
+    </AssociationSet>
+    <AssociationSet Name="LNK_USER_ROLE" Association="Self.LNK_USER_ROLE">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="USERS" EntitySet="USERS" />
+    </AssociationSet>
+    <FunctionImport Name="uspInsertExam" ReturnType="Collection(OnlineExamModel.uspInsertExam_Result)">
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="uspInsetQuestionWithAnswer">
+      <Parameter Name="questiontype" Mode="In" Type="Int32" />
+      <Parameter Name="exampaperid" Mode="In" Type="Int32" />
+      <Parameter Name="questiontext" Mode="In" Type="String" />
+      <Parameter Name="chioce1" Mode="In" Type="String" />
+      <Parameter Name="chioce2" Mode="In" Type="String" />
+      <Parameter Name="chioce3" Mode="In" Type="String" />
+      <Parameter Name="chioce4" Mode="In" Type="String" />
+      <Parameter Name="answer" Mode="In" Type="String" />
+      <Parameter Name="QUESTIONID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspgetQuestionsByExamPaperId" ReturnType="Collection(OnlineExamModel.uspgetQuestionsByExamPaperId_Result)">
+      <Parameter Name="exampaperid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspgetQuestionsByExamPaperId1" ReturnType="Collection(OnlineExamModel.uspgetQuestionsByExamPaperId_Result)">
+      <Parameter Name="exampaperid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <AssociationSet Name="FK__UserAnswe__UserI__02084FDA" Association="OnlineExamModel.FK__UserAnswe__UserI__02084FDA">
       <End Role="USER" EntitySet="USERS" />
-      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+      <End Role="UserAnswer" EntitySet="UserAnswers" />
     </AssociationSet>
-    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_USERS_UserId" Association="OnlineExamModel.FK_dbo_AspNetUserLogins_dbo_USERS_UserId">
+    <AssociationSet Name="FK__UserExam__UserID__02FC7413" Association="OnlineExamModel.FK__UserExam__UserID__02FC7413">
       <End Role="USER" EntitySet="USERS" />
-      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+      <End Role="UserExam" EntitySet="UserExams" />
     </AssociationSet>
-    <AssociationSet Name="LNK_ROLE_PERMISSION" Association="OnlineExamModel.LNK_ROLE_PERMISSION">
-      <End Role="PERMISSION" EntitySet="PERMISSIONS" />
-      <End Role="ROLE" EntitySet="ROLES" />
-    </AssociationSet>
-    <AssociationSet Name="LNK_USER_ROLE" Association="OnlineExamModel.LNK_USER_ROLE">
-      <End Role="ROLE" EntitySet="ROLES" />
-      <End Role="USER" EntitySet="USERS" />
-    </AssociationSet>
+    <FunctionImport Name="uspInsertUserAnswer">
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+      <Parameter Name="questionid" Mode="In" Type="Int32" />
+      <Parameter Name="choiceid" Mode="In" Type="Int32" />
+      <Parameter Name="exampaperid" Mode="In" Type="Int32" />
+      <Parameter Name="USERANSWERID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspUpdateUserAnswerById">
+      <Parameter Name="useranswerid" Mode="In" Type="Int32" />
+      <Parameter Name="choiceid" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
-  <EntityType Name="C__MigrationHistory">
-    <Key>
-      <PropertyRef Name="MigrationId" />
-      <PropertyRef Name="ContextKey" />
-    </Key>
-    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
-  <EntityType Name="AspNetUserClaim">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="Int32" Nullable="false" />
-    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="USER" Relationship="OnlineExamModel.FK_dbo_AspNetUserClaims_dbo_USERS_UserId" FromRole="AspNetUserClaim" ToRole="USER" />
-  </EntityType>
-  <EntityType Name="AspNetUserLogin">
-    <Key>
-      <PropertyRef Name="LoginProvider" />
-      <PropertyRef Name="ProviderKey" />
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="UserId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="USER" Relationship="OnlineExamModel.FK_dbo_AspNetUserLogins_dbo_USERS_UserId" FromRole="AspNetUserLogin" ToRole="USER" />
-  </EntityType>
-  <EntityType Name="PERMISSION">
-    <Key>
-      <PropertyRef Name="PermissionId" />
-    </Key>
-    <Property Name="PermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PermissionDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="ROLES" Relationship="OnlineExamModel.LNK_ROLE_PERMISSION" FromRole="PERMISSION" ToRole="ROLE" />
-  </EntityType>
-  <EntityType Name="ROLE">
-    <Key>
-      <PropertyRef Name="RoleId" />
-    </Key>
-    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="LastModified" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="IsSysAdmin" Type="Boolean" Nullable="false" />
-    <Property Name="RoleDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="PERMISSIONS" Relationship="OnlineExamModel.LNK_ROLE_PERMISSION" FromRole="ROLE" ToRole="PERMISSION" />
-    <NavigationProperty Name="USERS" Relationship="OnlineExamModel.LNK_USER_ROLE" FromRole="ROLE" ToRole="USER" />
-  </EntityType>
-  <EntityType Name="USER">
-    <Key>
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="LastModified" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Inactive" Type="Boolean" Nullable="false" />
-    <Property Name="Firstname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Lastname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
-    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
-    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUserClaims" Relationship="OnlineExamModel.FK_dbo_AspNetUserClaims_dbo_USERS_UserId" FromRole="USER" ToRole="AspNetUserClaim" />
-    <NavigationProperty Name="AspNetUserLogins" Relationship="OnlineExamModel.FK_dbo_AspNetUserLogins_dbo_USERS_UserId" FromRole="USER" ToRole="AspNetUserLogin" />
-    <NavigationProperty Name="ROLES" Relationship="OnlineExamModel.LNK_USER_ROLE" FromRole="USER" ToRole="ROLE" />
-  </EntityType>
-  <Association Name="FK_dbo_AspNetUserClaims_dbo_USERS_UserId">
-    <End Type="OnlineExamModel.USER" Role="USER" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="OnlineExamModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+  <ComplexType Name="uspInsertExam_Result">
+    <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+    <Property Type="Int32" Name="ErrorSeverity" Nullable="true" />
+    <Property Type="Int32" Name="ErrorState" Nullable="true" />
+    <Property Type="String" Name="ErrorProcesure" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="ErroLine" Nullable="true" />
+    <Property Type="String" Name="ErrorMessage" Nullable="true" MaxLength="4000" />
+  </ComplexType>
+  <ComplexType Name="uspgetQuestionsByExamPaperId_Result">
+    <Property Type="Int32" Name="QuestionID" Nullable="false" />
+    <Property Type="String" Name="QuestionText" Nullable="false" />
+    <Property Type="Int32" Name="QuestionTypeID" Nullable="false" />
+    <Property Type="Int32" Name="ExamPaperID" Nullable="false" />
+    <Property Type="Int32" Name="ChioceID" Nullable="false" />
+    <Property Type="String" Name="ChoiceText" Nullable="false" />
+  </ComplexType>
+  <Association Name="FK__UserAnswe__UserI__02084FDA">
+    <End Type="OnlineExamModel.USER" Role="USER" Multiplicity="1" />
+    <End Type="OnlineExamModel.UserAnswer" Role="UserAnswer" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="USER">
         <PropertyRef Name="UserId" />
       </Principal>
-      <Dependent Role="AspNetUserClaim">
-        <PropertyRef Name="UserId" />
+      <Dependent Role="UserAnswer">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_dbo_AspNetUserLogins_dbo_USERS_UserId">
-    <End Type="OnlineExamModel.USER" Role="USER" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="OnlineExamModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+  <Association Name="FK__UserExam__UserID__02FC7413">
+    <End Type="OnlineExamModel.USER" Role="USER" Multiplicity="0..1" />
+    <End Type="OnlineExamModel.UserExam" Role="UserExam" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="USER">
         <PropertyRef Name="UserId" />
       </Principal>
-      <Dependent Role="AspNetUserLogin">
-        <PropertyRef Name="UserId" />
+      <Dependent Role="UserExam">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
-  </Association>
-  <Association Name="LNK_ROLE_PERMISSION">
-    <End Type="OnlineExamModel.PERMISSION" Role="PERMISSION" Multiplicity="*" />
-    <End Type="OnlineExamModel.ROLE" Role="ROLE" Multiplicity="*" />
-  </Association>
-  <Association Name="LNK_USER_ROLE">
-    <End Type="OnlineExamModel.ROLE" Role="ROLE" Multiplicity="*" />
-    <End Type="OnlineExamModel.USER" Role="USER" Multiplicity="*" />
   </Association>
 </Schema>

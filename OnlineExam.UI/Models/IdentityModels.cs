@@ -160,7 +160,7 @@ namespace OnlineExam.UI.Models
     {        
         public DbSet<PERMISSION> PERMISSIONS { get; set; }     
 
-        public RBACDbContext() : base("DefaultConnection")
+        public RBACDbContext() : base("OnlineExamEntities1")
         {
             Database.SetInitializer<RBACDbContext>(new RBACDatabaseInitializer());
 

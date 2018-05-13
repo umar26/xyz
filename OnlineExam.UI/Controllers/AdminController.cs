@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using OnlineExam.UI;
 using OnlineExam.UI.Models;
+using model = OnlineExam.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,7 +13,10 @@ using System.Web.Routing;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using OnlineExam.BAL;
 
+using OnlineExam.Model;
+using OnlineExam.UI.Utility;
 
 namespace OnlineExam.UI.Controllers
 {
@@ -20,6 +24,11 @@ namespace OnlineExam.UI.Controllers
     public class AdminController : Controller
     {
         private RBACDbContext database = new RBACDbContext();
+        private ExamBL _ExamBL;
+        public AdminController()
+        {
+            _ExamBL = new ExamBL();
+        }
 
         #region USERS
         // GET: Admin
@@ -294,7 +303,7 @@ namespace OnlineExam.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult PermissionCreate(PERMISSION _permission)
+        public ActionResult PermissionCreate(model.PERMISSION _permission)
         {
             if (_permission.PermissionDescription == null)
             {
@@ -311,13 +320,13 @@ namespace OnlineExam.UI.Controllers
 
         public ActionResult PermissionEdit(int id)
         {
-            PERMISSION _permission = ApplicationRoleManager.GetPermission(id);
+           model. PERMISSION _permission = ApplicationRoleManager.GetPermission(id);
             ViewBag.RoleId = new SelectList(ApplicationRoleManager.GetRoles4SelectList(), "Id", "Name");
             return View(_permission);
         }
 
         [HttpPost]
-        public ActionResult PermissionEdit(PERMISSION _permission)
+        public ActionResult PermissionEdit(model.PERMISSION _permission)
         {
             if (ModelState.IsValid)
             {
@@ -401,12 +410,12 @@ namespace OnlineExam.UI.Controllers
                     }
 
                     string _permissionDescription = string.Format("{0}-{1}", _controllerName, _controllerActionName);
-                    PERMISSION _permission = database.PERMISSIONS.Where(p => p.PermissionDescription == _permissionDescription).FirstOrDefault();
+                   model. PERMISSION _permission = database.PERMISSIONS.Where(p => p.PermissionDescription == _permissionDescription).FirstOrDefault();
                     if (_permission == null)
                     {
                         if (ModelState.IsValid)
                         {
-                            PERMISSION _perm = new PERMISSION();
+                           model. PERMISSION _perm = new model.PERMISSION();
                             _perm.PermissionDescription = _permissionDescription;
 
                             database.PERMISSIONS.Add(_perm);
@@ -417,6 +426,50 @@ namespace OnlineExam.UI.Controllers
             }
             return RedirectToAction("PermissionIndex");
         }
-        #endregion    
+        #endregion
+
+        #region QUESTIONS UPLOAD
+
+        public ActionResult CreateQuestion()
+        {
+            Logger.Info("inside create -page started...");
+            QuestionAndChoiceVM Model = new QuestionAndChoiceVM();
+            List<QuestionType> QuestionTypes= _ExamBL.GetAllQuestionType();
+            List<ExamPaper> ExamPapers = _ExamBL.GetAllExamPaper();
+
+            QuestionTypes.ForEach((item) => Model.QuestionTypeList.Add(new SelectListItem()
+            {
+                Text=item.TypeName,
+                Value=item.ID.ToString()
+            }));
+
+            ExamPapers.ForEach((item) => Model.ExamPaperList.Add(new SelectListItem()
+            {
+                Text = item.PaperName,
+                Value = item.ID.ToString()
+            }));
+
+            return View(Model);
+
+        }
+
+        [HttpPost]
+        public ActionResult CreateQuestion(QuestionAndChoiceVM Model)
+        {
+            Logger.Info("inside create -page started...");
+            int questionType = Convert.ToInt32(Model.SelectedQuestionType);
+            int examPaperId= Convert.ToInt32(Model.SelectedExamPaper);
+
+            string answer = Model.Options.GetType().GetProperties().Single(pi => pi.Name == Model.SelectedAnswer).GetValue(Model.Options, null).ToString();
+
+            var result=_ExamBL.InsertQuestionWithAnswer(questionType, examPaperId, Model.QuestionText, Model.Options.Option1
+                , Model.Options.Option2, Model.Options.Option3, Model.Options.Option4, answer);
+
+
+            return View(Model);
+
+
+        }
+        #endregion
     }
 }

@@ -1,0 +1,188 @@
+﻿@model List<OnlineExam.UI.Models.QuestionsForExam>
+
+@{
+    ViewBag.Title = "QuestionsForExam";
+    
+}
+
+<h2>QuestionsForExam</h2>
+
+<div style="width:100%">
+    <div style="float:left;width:75%;margin-right:4%">
+        <div style="border:solid" class="QuestionCntr">
+
+            <input type="hidden" id="QuestionCnt" value="@Model.Count" />
+
+            @for (int i = 0; i < Model.Count; i++)
+    {
+                <div data-showcount="@(i+1)" data-saveduseransid="0" class="BlockQ" style="border: 1px solid #bdbdbd; width: 75%; border-radius: 4px; margin-top: 40px; background-color: #f0ffff; padding: 8px; display:none">
+                    <div class="Question" style="padding: 2%;">
+                        <span class="label label-warning"> @string.Format("{0}{1}.", "Q", i+1)</span>
+                        <span id="@string.Format("{0}{1}", "ID_Q", i+1)" class="questionid" style="display:none;"> @Model[i].QuestionId</span>
+                        <p style="display: inline; padding: 2%;" id="@string.Format("{0}{1}", "Q", i+1)">@Model[i].QuestionText</p>
+                    </div>
+                    <div class="Choices" style="margin-left: 8%;">
+                        @foreach (var choice in Model[i].Choices)
+                {
+                            <label class="radio-inline">
+                                <input type="radio" data-choice-id="@choice.Id" name="@string.Format("{0}{1}", "inlineRadioOptions",Model[i].QuestionId)" id="@string.Format("Q{0}_{1}", Model[i].QuestionId, choice.Id)" value="@choice.Id" style="margin-left: -16px;"> @choice.Text
+                            </label><br />
+
+                }
+                    </div> <!--END Choices-->
+
+                </div> <!-- END BlockQ -->
+
+
+    }
+
+        </div>
+        <div>
+            <span id="CurrentlyQues" value="1"></span>
+            <button type="button"  id="NextQuestion" class="btn btn-default" style="margin-top: 10px;"><span class="glyphicon glyphicon-ok"></span> Next Question</button>
+            <button type="button" id="PrevQuestion" class="btn btn-default" style="margin-top: 10px;"><span class="glyphicon glyphicon-ok"></span> Previous Question</button>
+            <button type="button" id="SaveAndNextQues" class="btn btn-default" style="margin-top: 10px;"><span class="glyphicon glyphicon-ok"></span> SaveAndNext</button>
+            <button type="button" id="Submit" disabled class="btn btn-default" style="margin-top: 10px;"><span class="glyphicon glyphicon-ok"></span> Submit</button>
+        </div>
+    </div>
+    <div style="float:left;width:20%;">
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <div>
+                <a href="#" class="sidelink" data-value="@(i+1)" >@(i+1)</a>
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#NextQuestion").on("click", function (e) {
+            var curseleques = $("#CurrentlyQues").attr("value");
+            ShowQuestion(parseInt(curseleques)+1);
+            $("#CurrentlyQues").attr("value", ++curseleques);
+            ShowHideBtns();
+        });
+
+        $("#PrevQuestion").on("click", function (e) {
+            var curseleques = $("#CurrentlyQues").attr("value");
+            ShowQuestion(parseInt(curseleques) - 1);
+            $("#CurrentlyQues").attr("value", --curseleques);
+            ShowHideBtns();
+        });
+
+        $("#SaveAndNextQues").on("click", function (e) {
+            SaveUserAnswer();
+            var curseleques = $("#CurrentlyQues").attr("value");
+            ShowQuestion(parseInt(curseleques) + 1);
+
+            $("#CurrentlyQues").attr("value", ++curseleques);
+            ShowHideBtns();
+        });
+        $("#Submit").on("click",Submit)
+        function ShowQuestion( displayqueno)
+        {
+            var questionNo = parseInt(displayqueno);
+            $(".BlockQ").css("display", "none");
+
+            $(".BlockQ[data-showcount=" + questionNo + "]").css("display", "block");
+        };
+
+        function ShowHideBtns()
+        {
+            var curseleques =parseInt( $("#CurrentlyQues").attr("value"));
+            var totalcnt = parseInt($("#QuestionCnt").attr("value"));
+            if(curseleques>=totalcnt)
+            {
+                $("#NextQuestion").attr("disabled", "disabled");
+                $("#Submit").attr("disabled", false);
+            }
+            else
+            {
+                $("#NextQuestion").attr("disabled", false);
+                $("#Submit").attr("disabled", "disabled");
+            }
+
+            if (curseleques <=1) {
+                $("#PrevQuestion").attr("disabled", "disabled");
+            }
+            else
+            {
+                $("#PrevQuestion").attr("disabled", false);
+            }
+        }
+
+        ShowQuestion(1);
+
+        $(".sidelink").on("click", function (e) {
+
+            var currno = $(this).attr("data-value");
+            ShowQuestion(currno);
+            $("#CurrentlyQues").attr("value", currno);
+        });
+
+        //Save And Next
+
+        function SaveUserAnswer()
+        {
+            var curseleques = parseInt($("#CurrentlyQues").attr("value"));
+            var currquesblock = $(".BlockQ[data-showcount=" + curseleques + "]");
+
+            var questionid = parseInt(currquesblock.find(".questionid").text());
+            var userAnswerId = parseInt( currquesblock.attr("data-saveduseransid"));
+            var choiceID = parseInt(currquesblock.find(".Choices input[type='radio']:checked").val());
+
+            $.ajax('@Url.Action("SaveUserQuestionAnswer","Students")', {
+                type: 'POST',
+                data: JSON.stringify({ QuestionId: questionid, ChoiceID: choiceID,UserAnswerId:userAnswerId}),
+                contentType: "application/json;",
+                dataType: "text",
+            }).done(function (result) {
+                debugger;
+                if (result) {
+                    currquesblock.attr("data-saveduseransid", result);
+                }
+            }).fail(function (error) {
+                debugger;
+                console.log("in error");
+            });
+        }
+
+        function Submit()
+        {
+            var submitdataarray = [];
+            debugger;
+            var QuestionBlocks = $(".QuestionCntr").find(".BlockQ");
+            for (var i = 0; i < QuestionBlocks.length; i++) {
+                var curblock = $(QuestionBlocks[i]);
+                var questionid = parseInt(curblock.find(".questionid").text());
+                var userAnswerId = parseInt(curblock.attr("data-saveduseransid"));
+                var choiceID = parseInt(curblock.find(".Choices input[type='radio']:checked").val());
+                var obj = {};
+                obj.QuestionId = questionid;
+                obj.UserAnswerId = userAnswerId;
+                obj.ChoiceID = choiceID;
+                submitdataarray.push(obj);
+            }
+
+            $.ajax('@Url.Action("SubmitAnswers", "Students")', {
+                type: 'POST',
+                data: { QuestionAns: JSON.stringify(submitdataarray) },
+                //contentType: "application/json; charset=utf-8",
+                dataType: "json",
+            }).done(function (result) {
+                debugger;
+                if (result) {
+                    alert("Questionsaved");
+                }
+            }).fail(function (error) {
+                debugger;
+                console.log("in error");
+            });
+        }
+
+    });
+
+</script>

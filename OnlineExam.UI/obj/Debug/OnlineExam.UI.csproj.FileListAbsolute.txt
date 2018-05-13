@@ -63,6 +63,7 @@ C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineEx
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Antlr3.Runtime.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\EntityFramework.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\EntityFramework.SqlServer.dll
+C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\log4net.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -77,6 +78,8 @@ C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineEx
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Microsoft.Owin.Security.Twitter.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Newtonsoft.Json.dll
+C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\OnlineExam.BAL.dll
+C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\OnlineExam.Model.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Owin.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\RestSharp.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\System.Web.Helpers.dll
@@ -88,6 +91,10 @@ C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineEx
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\System.Web.WebPages.Razor.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Twilio.Api.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\WebGrease.dll
+C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\OnlineExam.DAL.dll
+C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\OnlineExam.BAL.pdb
+C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\OnlineExam.Model.pdb
+C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\log4net.xml
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\RestSharp.xml
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\System.Web.Helpers.xml
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\System.Web.Mvc.xml
@@ -114,6 +121,7 @@ C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineEx
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\bin\OnlineExam.DAL.pdb
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\obj\Debug\OnlineExam.UI.csprojResolveAssemblyReference.cache
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\obj\Debug\OnlineExam.UI.dll
 C:\Users\Abhishek Umar\Documents\Visual Studio 2015\Projects\OnlineExam\OnlineExam.UI\obj\Debug\OnlineExam.UI.pdb

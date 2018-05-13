@@ -14,6 +14,7 @@ namespace OnlineExam.UI
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+           // log4net.Config.XmlConfigurator.Configure();
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(RBACDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -36,10 +37,11 @@ namespace OnlineExam.UI
                     validateInterval: TimeSpan.FromMinutes(30),
                     regenerateIdentityCallback: (manager, user) =>
                         user.GenerateUserIdentityAsync(manager),
-                    getUserIdCallback: (id) => (id.GetUserId<int>()))
+                    getUserIdCallback: (id) => (id.GetUserId<int>())
+                    )
 
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.

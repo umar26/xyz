@@ -1,0 +1,101 @@
+﻿@model OnlineExam.UI.Models.QuestionAndChoiceVM
+
+@{
+    ViewBag.Title = "CreateQuestion";
+}
+
+<h2>CreateQuestion</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>QuestionAndChoiceVM</h4>
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.Label("Question Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model=>model.SelectedQuestionType,Model.QuestionTypeList,"Select QuestionType",new { })
+                @Html.ValidationMessageFor(model => model.SelectedQuestionType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Exam Paper", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedExamPaper, Model.ExamPaperList, "Select Exam Paper", new { })
+                @Html.ValidationMessageFor(model => model.SelectedExamPaper, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuestionText, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.TextAreaFor(model=>model.QuestionText,new { })
+                @Html.ValidationMessageFor(model=>model.QuestionText,"Field is Empty",new { @class = "text-danger" })
+            </div>
+            </div>
+
+        <div class="optionsset">
+           
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Options.Option1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model=>model.Options.Option1,new { })
+                        @Html.ValidationMessageFor(model => model.Options.Option1, "Field is Empty", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        @Html.RadioButtonFor(model=>model.SelectedAnswer, "Option1",new {@id="Answer1"})
+                        @Html.Label("IsAnswer")
+                    </div>
+                </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Options.Option2, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Options.Option2, new { })
+                    @Html.ValidationMessageFor(model => model.Options.Option2, "Field is Empty", new { @class = "text-danger" })
+                </div>
+                <div>
+                    @Html.RadioButtonFor(model => model.SelectedAnswer, "Option2", new { @id= "Answer2" })
+                    @Html.Label("IsAnswer")
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Options.Option3, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Options.Option3, new { })
+                    @Html.ValidationMessageFor(model => model.Options.Option3, "Field is Empty", new { @class = "text-danger" })
+                </div>
+                <div>
+                    @Html.RadioButtonFor(model => model.SelectedAnswer, "Option3", new { id = "Answer3" })
+                   @Html.Label("IsAnswer")
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Options.Option4, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Options.Option4, new { })
+                    @Html.ValidationMessageFor(model => model.Options.Option4, "Field is Empty", new { @class = "text-danger" })
+                </div>
+                <div>
+                    @Html.RadioButtonFor(model => model.SelectedAnswer, "Option4", new { id = "Answer" })
+                    @Html.Label("IsAnswer")
+                </div>
+            </div>
+           
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

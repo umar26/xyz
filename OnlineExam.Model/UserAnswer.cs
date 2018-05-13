@@ -15,7 +15,7 @@ namespace OnlineExam.Model
     public partial class UserAnswer
     {
         public int ID { get; set; }
-        public Nullable<int> UserID { get; set; }
+        public int UserID { get; set; }
         public Nullable<int> QuestionId { get; set; }
         public Nullable<int> ChoiceID { get; set; }
         public string Answer { get; set; }
@@ -24,5 +24,6 @@ namespace OnlineExam.Model
         public virtual Choice Choice { get; set; }
         public virtual ExamPaper ExamPaper { get; set; }
         public virtual Question Question { get; set; }
+        public virtual USER USER { get; set; }
     }
 }
